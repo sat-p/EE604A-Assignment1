@@ -1,0 +1,2 @@
+Commenting code of Q1 and Q2.
+Writing a README.
