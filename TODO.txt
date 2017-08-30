@@ -1,3 +1,4 @@
+Text Code of Q1.
 Commenting code of Q1 and Q2, Q6.
 Writing a README.
 Completing Q7's code.

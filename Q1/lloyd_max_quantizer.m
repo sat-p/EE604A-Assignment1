@@ -7,7 +7,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resolution)
-
+    
+    % [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resolution). It
+    % returns the MSE values at every iteration; and the final representation and
+    % transition levels.
+    % 
+    % mses       : The MSE valus at every iteration.
+    % q_level    : The representation levels (2^resolution levels)
+    % q_boundary : The transition levels ((2^resolution) + 1 levels)
+    %
+    % signal     : Typical signal for which quantization is to be performed.
+    % resolution : log_2 (Number of representation levels)
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     convergence_threshold = 1e-7;
@@ -15,6 +26,8 @@ function [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resol
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     num_levels = 2 ^ resolution;
+    
+    sorted_signal = sort (signal);
     
     lower_bound = sorted_signal (1);
     upper_bound = sorted_signal (end);
