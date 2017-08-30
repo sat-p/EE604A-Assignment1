@@ -12,18 +12,14 @@ int main (int argc, char** argv)
         return 0;
     }
     
-    cv::Mat ref = cv::imread (argv[1], cv::IMREAD_GRAYSCALE);
-    cv::Mat tar = cv::imread (argv[2], cv::IMREAD_GRAYSCALE);
+    const auto& tar = cv::imread (argv[2], cv::IMREAD_GRAYSCALE);
+    const auto& ref = cv::imread (argv[1], cv::IMREAD_GRAYSCALE);
     
-    /*
-     * Obtaining the matched_image without printing of the histograms
-     */
-    cv::Mat matched_tar = EE604A::histogram_matching (tar, ref, true);
+    // Obtaining the matched_image without printing of the histograms
+    const auto& matched_tar = EE604A::histogram_matching (tar, ref, false);
     
-    /*
-     * Obtaining the matched_image and printing of the histograms
-     */
-//     cv::Mat matched_tar = EE604A::histogram_matching (tar, ref, false);
+    // Obtaining the matched_image and printing of the histograms
+//     const auto& matched_tar = EE604A::histogram_matching (tar, ref, true);
     
     cv::imshow ("Reference Image", ref);
     cv::imshow ("Target Image", tar);

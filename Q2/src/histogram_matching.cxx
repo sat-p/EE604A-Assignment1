@@ -23,7 +23,8 @@ plot_histogram (const auto& hist, const char* plot_title = "")
     
     std::cout << plot_title << std::endl;
     for (const auto& p : hist) {
-    
+        
+        assert (max);
         const int val = (p * MAX) / max;
         
         std::cout << p << "\t|";
@@ -55,16 +56,18 @@ EE604A::histogram_matching (const cv::Mat& tar, const cv::Mat& ref, bool plot)
     const int N_ref = ref.rows * ref.cols;
     
     tar_hist.fill (0);
-    for (auto it = tar.begin<pixel_t>(); it != tar.end<pixel_t>(); ++it)
-        ++tar_hist[*it];
-    
     ref_hist.fill (0);
+    
     for (auto it = ref.begin<pixel_t>(); it != ref.end<pixel_t>(); ++it)
         ++ref_hist[*it];
     
+    for (auto it = tar.begin<pixel_t>(); it != tar.end<pixel_t>(); ++it)
+        ++tar_hist[*it];
+    
     long long sum = 0;
     for (int idx = 0; idx < tar_hist.size(); ++idx) {
-    
+        
+        assert (N_tar);
         sum += tar_hist[idx] * L_max;
         T_tar[idx] = sum / N_tar;
     }
@@ -76,6 +79,7 @@ EE604A::histogram_matching (const cv::Mat& tar, const cv::Mat& ref, bool plot)
     
         sum += ref_hist[idx] * L_max;
         
+        assert (N_ref);
         const int cur_s = sum / N_ref;
         
         for (int idx2 = last_s + 1; idx2 <= cur_s; ++idx2)

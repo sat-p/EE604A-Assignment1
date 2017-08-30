@@ -85,12 +85,38 @@ Carving (low.jpg)   : \url{https://www.flickr.com/photos/30440933@N06/2847993403
 Dog     (small.jpg) : \url{https://res.cloudinary.com/rover-com/image/upload/a_exif,c_fill,f_jpg,fl_progressive,g_face:center,h_100,q_80,w_100/remote/images/pets/4NpPzO8N/50e4a023d9/original.jpg}
 \section*{Solution 1}
 \subsection*{(a)}
-Code has been written in two MATLAB\textregistered\ files : \\
+Code has been written in two MATLAB\textregistered\ files :
 \begin{itemize}
-  \item lloyd_max_quantizer.m : The file contating the function
-  \item Another entry in the list
+\item Q1\textbackslash lloyd\_max\_quantizer.m : The file contating the function
+\item Q1\textbackslash Q1.m : The script to perform the required tasks.
 \end{itemize}
+\subsection*{(b)}
+The 4 representation levels are :
+
+The corresponding transition levels are :
+
+\subsection*{(c)}
+\subsection*{(d)}
+\subsection*{(e)}
+
 \section*{Solution 2}
+
+A C++ function, EE604A::histogram\_matching(), for histogram matching of cv::Mat images has been developed.
+The code required for the matching function is present in :
+\begin{itemize}
+\item Q2\textbackslash src\textbackslash histogram\_matching.cxx
+\item Q2\textbackslash src\textbackslash histogram\_matching.h 
+\end{itemize}
+A small program which uses the histogram matching function is present in Q2\textbackslash src\textbackslash Q2.cxx
+
+In order to run the code, the following steps need to be followed :
+\begin{enumerate}
+\item Enter Q2\textbackslash src.
+\item run build.sh (OpenCV needs to installed and a version of g++ supporting c++14 needs to be present)
+\item Execute Q2 (the binary file) with the reference and target relative/absolute image paths. Eg. [./Q2 ../../images/high.jpg ../../images/low.jpg] or [./Q2 ../../images/low.jpg ../../images/high.jpg] (On Ubuntu)
+\item The program can be closed by Ctrl+C on the terminal or by pressing 'q' when one of the image windows is open.
+\end{enumerate}
+REMARK : A simple plot of the the histograms can be obtained by toggling 
 \section*{Solution 3}
 
 \begin{center}

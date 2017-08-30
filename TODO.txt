@@ -1,4 +1,5 @@
-Text Code of Q1.
+Test Code of Q1.
+Write the answer to Q1(e).
 Commenting code of Q1 and Q2, Q6.
 Writing a README.
 Completing Q7's code.
