@@ -6,7 +6,7 @@
 /*****************************************************************************/
 
 /*
- * Performed with help from the following tutorial :
+ * Developed with help from the following tutorial :
  * http://docs.opencv.org/2.4/doc/tutorials/core/discrete_fourier_transform/discrete_fourier_transform.html
  */
 

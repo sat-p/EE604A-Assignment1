@@ -75,19 +75,20 @@ bindingoffset=0mm, top=20mm,bottom=20mm}
 
 \author{Satya Prakash Panuganti, 14610}
 
-\date{30 August, 2017}
+\date{31 August, 2017}
 
 \maketitle
 
 \section*{Image Sources}
 Sunset  (high.jpg)  : \url{https://www.flickr.com/photos/mediaflex/4190084346} \\
 Carving (low.jpg)   : \url{https://www.flickr.com/photos/30440933@N06/2847993403} \\
-Dog     (small.jpg) : \url{https://res.cloudinary.com/rover-com/image/upload/a_exif,c_fill,f_jpg,fl_progressive,g_face:center,h_100,q_80,w_100/remote/images/pets/4NpPzO8N/50e4a023d9/original.jpg}
+Dog     (small.jpg) : \url{https://res.cloudinary.com/rover-com/image/upload/a_exif,c_fill,f_jpg,fl_progressive,g_face:center,h_100,q_80,w_100/remote/images/pets/4NpPzO8N/50e4a023d9/original.jpg} \\
+divyat.jpg 			 : Own work. Taken with permission.
 \section*{Solution 1}
 \subsection*{(a)}
 Code has been written in two MATLAB\textregistered\ files :
 \begin{itemize}
-\item Q1\textbackslash lloyd\_max\_quantizer.m : The file contating the function
+\item Q1\textbackslash lloyd\_max\_quantizer.m : The file contating the function.
 \item Q1\textbackslash Q1.m : The script to perform the required tasks.
 \end{itemize}
 \subsection*{(b)}
@@ -109,21 +110,31 @@ The code required for the matching function is present in :
 \end{itemize}
 A small program which uses the histogram matching function is present in Q2\textbackslash src\textbackslash Q2.cxx
 
-In order to run the code, the following steps need to be followed :
+In order to build and run the code, the following steps need to be followed :
 \begin{enumerate}
 \item Enter Q2\textbackslash src.
 \item run build.sh (OpenCV needs to installed and a version of g++ supporting c++14 needs to be present)
 \item Execute Q2 (the binary file) with the reference and target relative/absolute image paths. Eg. [./Q2 ../../images/high.jpg ../../images/low.jpg] or [./Q2 ../../images/low.jpg ../../images/high.jpg] (On Ubuntu)
 \item The program can be closed by Ctrl+C on the terminal or by pressing 'q' when one of the image windows is open.
 \end{enumerate}
-REMARK : A simple plot of the the histograms can be obtained by toggling 
-\section*{Solution 3}
+REMARK : A simple plot of the the histograms can be obtained by toggling the third argument of the function EE604A::histogram\_matching() to true.
 
+\subsection*{Results}
 \begin{center}
-%\includegraphics[scale = 0.37]{../images/q1output.jpg}
-%The images obatained after projecting the LIDAR points onto them.
+Target : high.jpg, Reference : low.jpg \\
+\includegraphics[scale= 0.25]{../results/target1.png}
+\includegraphics[scale= 0.25]{../results/reference1.png}
+\includegraphics[scale= 0.25]{../results/matched1.png}
+\end{center}
+\begin{center}
+Target : low.jpg, Reference : high.jpg \\
+\includegraphics[scale= 0.25]{../results/target2.png}
+\includegraphics[scale= 0.25]{../results/reference2.png}
+\includegraphics[scale= 0.25]{../results/matched2.png}
 \end{center}
 
+\section*{Solution 3}
+Bilinear interpolation in a 8-connect neighborhood.
 \section*{Solution 4}
 $$\text{We are assuming that }\eta_i (x_1, y_1)\ and\ \eta_j (x_2, y_2)\text{ are independent if i }\neq j\ or\ x_1 \neq x_2\ or\ y_1 \neq y_w.$$
 \begin{align}
@@ -187,7 +198,10 @@ We\ can\ also\ write,\
 Now,\ \nabla^2 f(u, v, w) & = \frac{\partial^2 f}{\partial^2 u} +
 							  \frac{\partial^2 f}{\partial^2 v} +
 						      \frac{\partial^2 f}{\partial^2 w} \\
-	\frac{\partial f}{\partial u} & = \frac{\partial f}{\partial x}\frac{\partial x}{\partial u} + \frac{\partial f}{\partial y}\frac{\partial y}{\partial u} + \frac{\partial f}{\partial z}\frac{\partial z}{\partial u} \\
+\frac{\partial f}{\partial u} & =
+\frac{\partial f}{\partial x}\frac{\partial x}{\partial u} +
+\frac{\partial f}{\partial y}\frac{\partial y}{\partial u} +
+\frac{\partial f}{\partial z}\frac{\partial z}{\partial u} \\
 & = R_{11}\frac{\partial f}{\partial x} +
 	R_{12}\frac{\partial f}{\partial y} +
 	R_{13}\frac{\partial f}{\partial z} & from\ (4), (10) \\
@@ -202,10 +216,16 @@ Similarily,\ \frac{\partial f}{\partial v}
 \end{align}
 \begin{align}
 \therefore\ \frac{\partial^2 f}{\partial^2 u} & =
-R_{11}(\frac{\partial^2 f}{\partial^2 x} \frac{\partial x}{\partial u} +
-	  \frac{\partial^2 f}{\partial y \partial x} \frac{\partial y}{\partial u} +	  \frac{\partial^2 f}{\partial z \partial x} \frac{\partial z}{\partial u})\notag \\
-& + R_{12}(\frac{\partial^2 f}{\partial x \partial y} \frac{\partial x}{\partial u} + \frac{\partial^2 f}{\partial^2 y} \frac{\partial y}{\partial u} +	 \frac{\partial^2 f}{\partial z \partial x} \frac{\partial z}{\partial u}) \notag \\
-& + R_{13}(\frac{\partial^2 f}{\partial x \partial z} \frac{\partial x}{\partial u} + \frac{\partial^2 f}{\partial y \partial z} \frac{\partial y}{\partial u} +	 \frac{\partial^2 f}{\partial^2 z} \frac{\partial z}{\partial u}) & from\ (13)\ and\ chain\ rule \\
+R_{11}
+(\frac{\partial^2 f}{\partial^2 x} \frac{\partial x}{\partial u} +
+ \frac{\partial^2 f}{\partial y \partial x} \frac{\partial y}{\partial u} +
+ \frac{\partial^2 f}{\partial z \partial x} \frac{\partial z}{\partial u})\notag \\
+& + R_{12}(\frac{\partial^2 f}{\partial x \partial y} \frac{\partial x}{\partial u}
+  + \frac{\partial^2 f}{\partial^2 y} \frac{\partial y}{\partial u}
+  +	 \frac{\partial^2 f}{\partial z \partial x} \frac{\partial z}{\partial u}) \notag \\
+& + R_{13}(\frac{\partial^2 f}{\partial x \partial z} \frac{\partial x}{\partial u}
+  + \frac{\partial^2 f}{\partial y \partial z} \frac{\partial y}{\partial u} 
+  +	 \frac{\partial^2 f}{\partial^2 z} \frac{\partial z}{\partial u}) & from\ (13)\ and\ chain\ rule \\
 & = R_{11}^2\frac{\partial^2 f}{\partial^2 x} +
 	R_{11}R_{12}\frac{\partial^2 f}{\partial y \partial x} +
 	R_{11}R_{13}\frac{\partial^2 f}{\partial z \partial x}\notag \\
@@ -256,4 +276,42 @@ On performing $(17) + (18) + (19)$, we get using (5), (6), (7), (9) and (10)
 q.e.d
 \end{align*}
 \section*{Solution 6}
+
+A C++ file containds the code required to perform the required task.
+
+In order to build and run the code, the following steps need to be followed :
+\begin{enumerate}
+\item Enter Q6\textbackslash src.
+\item run build.sh (OpenCV needs to installed and a version of g++ supporting c++14 needs to be present)
+\item Execute Q6 (the binary file) with the relative/absolute image path. Eg. [./Q6 ../../images/high.jpg] or [./Q2 ../../images/low.jpg ../../images/high.jpg] (On Ubuntu)
+\item The program can be closed by Ctrl+C on the terminal or by pressing `q' when one of the image windows is open.
+\end{enumerate}
+REMARK : A simple plot of the the histograms can be obtained by toggling the third argument of the function EE604A::histogram\_matching() to true.
+\subsection*{Results}
+\begin{center}
+divyat.jpg \\
+\includegraphics[scale= 0.25]{../results/divyat.png}
+\includegraphics[scale= 0.25]{../results/divyat_spectrum.png}
+\includegraphics[scale= 0.25]{../results/divyat_phase.png}
+\includegraphics[scale= 0.25]{../results/divyat_magnitude.png}
+\end{center}
+\begin{center}
+low.jpg \\
+\includegraphics[scale= 0.25]{../results/low.png}
+\includegraphics[scale= 0.25]{../results/low_spectrum.png}
+\includegraphics[scale= 0.25]{../results/low_phase.png}
+\includegraphics[scale= 0.25]{../results/low_magnitude.png}
+\end{center}
+\subsection*{Observations}
+\subsubsection*{Reconstruction using only phase spectrum}
+From the above the tests, it can be inferred that performing reconstruction using only phase information, edges are being preserved and we are losing all grey-levels of homogenous regions. From, the spectrum plots, we can infer that the lower frequency components tend to have greater values than the higher frequency ones in general images. Thus, when we remove the magnitude information, the lower frequency components are getting more suppressed than the higer frequency components, i.e. the operation is similar to a high-pass filter. This premise explains the above images obatined using only the phase spectrum.
+\subsubsection*{Reconstruction using only magnitude spectrum}
+The reconstruction using only magnitude spectrum appears to only contain information regarding the prominent greylevels present in the image.
+
+\section*{Solution 7}
+\begin{figure*}[h]
+\includegraphics[scale=1.0]{../results/Q7_sigma01.png}
+\caption{The images from left to right are as follows : (a) The original image (small.jpg), (b) The images with added zero-mean gaussian noise with $\sigma^2 = 0.1$, (c) The reconstucted image [b], (d) The image with impulse noise, (e) The reconstructed image [d]}
+\end{figure*}
+
 \end{document}
