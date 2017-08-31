@@ -143,41 +143,41 @@ Let the 8-connect neighborhood of a point be given by
 	\hline
 	v31 & v32 & v33 \\
 	\hline
-\end{tabular}
+\end{tabular}. \\ \\
 In blinear interpolation, we fit a function $f(x, y)$ using weights $a_{ij}$ in the following manner :
 \begin{align}
 f(x, y) & = \Sigma_{i = 0}^1\Sigma_{j = 0}^1 a_{ij}x^i y^j
 \end{align}
-Let $x = 0$ and $y = 0$ at the center of the above neighborhood. Also let $e$ be the error vector. Also, let us assume that the distance between two adjacent pixels along x and y be both 1.
+Let $x_1, x_2, x_3$ and $y_1, y_2, y_3$ be the x and y coordinates of the points in the neighborhood. It is clear that $x_1 \neq x_2$, $x_2 \neq x_3$, $x_3 \neq x_1$, $y_1 \neq y_2$, $y_2 \neq y_3$ and $y_3 \neq y_1$. Also, let $e$ be the error vector.
 \begin{align}
 We\ have,\ \begin{bmatrix}
-				f(-1, -1) \\
-				f(-1,  0) \\
-				f(-1,  1) \\
-				f( 0, -1) \\
-				f( 0,  0) \\
-				f( 0,  1) \\
-				f( 1, -1) \\
-				f( 1,  0) \\
-				f( 1,  1)
+				f(x_1, y_1) \\
+				f(x_1, y_2) \\
+				f(x_1, y_3) \\
+				f(x_2, y_1) \\
+				f(x_2, y_2) \\
+				f(x_2, y_3) \\
+				f(x_3, y_1) \\
+				f(x_3, y_2) \\
+				f(x_3, y_3)
 			\end{bmatrix} & = 
 			\begin{bmatrix}
-				1 &&	-1 &&	-1 &&	 1 \\
-				1 &&	 0 &&	-1 &&    0 \\
-				1 && 	 1 &&	-1 &&	-1 \\
-				1 &&	-1 &&	 0 &&	 0 \\
-				1 &&	 0 &&	 0 &&	 0 \\
-				1 &&	 1 &&	 0 &&	 0 \\
-				1 &&	-1 &&	 1 &&	-1 \\
-				1 &&	 0 &&	 1 &&	 0 \\
-				1 &&	 1 &&	 1 &&	 1
+				1 && x_1 &&	y_1 && x_1y_1 \\
+				1 && x_1 &&	y_2 && x_1y_2 \\
+				1 && x_1 &&	y_3 && x_1y_3 \\
+				1 && x_2 &&	y_1 && x_2y_1 \\
+				1 && x_2 &&	y_2 && x_2y_2 \\
+				1 && x_2 &&	y_3 && x_2y_3 \\
+				1 && x_3 &&	y_1 && x_3y_1 \\
+				1 && x_3 &&	y_2 && x_3y_2 \\
+				1 && x_3 &&	y_3 && x_3y_3 \\
 			\end{bmatrix}
 			\begin{bmatrix}
 				a_{00} \\
 				a_{01} \\
 				a_{10} \\
 				a_{11}	
-			\end{bmatrix} & from\ (1)\\
+			\end{bmatrix} + e \\
 \implies\ \begin{bmatrix}
 				v{11} \\
 				v{12} \\
@@ -188,31 +188,31 @@ We\ have,\ \begin{bmatrix}
 				v{31} \\
 				v{32} \\
 				v{33}
-			\end{bmatrix} - e & = 
+			\end{bmatrix} & = 
 			\begin{bmatrix}
-				1 &&	-1 &&	-1 &&	 1 \\
-				1 &&	 0 &&	-1 &&    0 \\
-				1 && 	 1 &&	-1 &&	-1 \\
-				1 &&	-1 &&	 0 &&	 0 \\
-				1 &&	 0 &&	 0 &&	 0 \\
-				1 &&	 1 &&	 0 &&	 0 \\
-				1 &&	-1 &&	 1 &&	-1 \\
-				1 &&	 0 &&	 1 &&	 0 \\
-				1 &&	 1 &&	 1 &&	 1
+				1 && x_1 &&	y_1 && x_1y_1 \\
+				1 && x_1 &&	y_2 && x_1y_2 \\
+				1 && x_1 &&	y_3 && x_1y_3 \\
+				1 && x_2 &&	y_1 && x_2y_1 \\
+				1 && x_2 &&	y_2 && x_2y_2 \\
+				1 && x_2 &&	y_3 && x_2y_3 \\
+				1 && x_3 &&	y_1 && x_3y_1 \\
+				1 && x_3 &&	y_2 && x_3y_2 \\
+				1 && x_3 &&	y_3 && x_3y_3 \\
 			\end{bmatrix}
 			\begin{bmatrix}
 				a_{00} \\
 				a_{01} \\
 				a_{10} \\
 				a_{11}	
-			\end{bmatrix}
+			\end{bmatrix} + e
 \end{align}
 Our aim is to determine $\begin{bmatrix}
 							a_{00} \\
 							a_{01} \\
 							a_{10} \\
 							a_{11}	
-						  \end{bmatrix}$ while minimizing the the MSE, $E^TE$. \\
+						  \end{bmatrix}$ while minimizing the the MSE, $e^Te$. \\
 Let $f = \begin{bmatrix}
 				v{11} \\
 				v{12} \\
@@ -225,15 +225,15 @@ Let $f = \begin{bmatrix}
 				v{33}
 			\end{bmatrix}$,
     $X = \begin{bmatrix}
-				1 &&	-1 &&	-1 &&	 1 \\
-				1 &&	 0 &&	-1 &&    0 \\
-				1 && 	 1 &&	-1 &&	-1 \\
-				1 &&	-1 &&	 0 &&	 0 \\
-				1 &&	 0 &&	 0 &&	 0 \\
-				1 &&	 1 &&	 0 &&	 0 \\
-				1 &&	-1 &&	 1 &&	-1 \\
-				1 &&	 0 &&	 1 &&	 0 \\
-				1 &&	 1 &&	 1 &&	 1
+				1 && x_1 &&	y_1 && x_1y_1 \\
+				1 && x_1 &&	y_2 && x_1y_2 \\
+				1 && x_1 &&	y_3 && x_1y_3 \\
+				1 && x_2 &&	y_1 && x_2y_1 \\
+				1 && x_2 &&	y_2 && x_2y_2 \\
+				1 && x_2 &&	y_3 && x_2y_3 \\
+				1 && x_3 &&	y_1 && x_3y_1 \\
+				1 && x_3 &&	y_2 && x_3y_2 \\
+				1 && x_3 &&	y_3 && x_3y_3 \\
 			\end{bmatrix}$ and
 	$W = \begin{bmatrix}
 			a_{00} \\
@@ -242,59 +242,54 @@ Let $f = \begin{bmatrix}
 			a_{11}	
 		 \end{bmatrix}$
 \begin{align}
-\therefore\ e & = f - XW \\
+\therefore\ e & = f - XW
 \end{align}
 The best estimate for W is given by : 
 \begin{align}
-\hat{W} & = (X^TX)^{-1}X^Tf & on\ minimizing\ the\ MSE. \\
-& = \begin{bmatrix}
-\frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
--\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} &  0 & \frac{1}{6} \\
--\frac{1}{6} & -\frac{1}{6} & -\frac{1}{6} & 0 & 0 & 0 & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\
-\frac{1}{4} & 0 & -\frac{1}{4} & 0 & 0 & 0 & -\frac{1}{4} & 0 & \frac{1}{4}
-\end{bmatrix}
-\begin{bmatrix}
-	v{11} \\
-	v{12} \\
-	v{13} \\
-	v{21} \\
-	v{22} \\
-	v{23} \\
-	v{31} \\
-	v{32} \\
-	v{33}
-\end{bmatrix} \\
-\implies\ 
-\begin{bmatrix}
-	a_{00} \\
-	a_{01} \\
-	a_{10} \\
-	a_{11}	
-\end{bmatrix} & =
-\begin{bmatrix}
-\frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
--\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} &  0 & \frac{1}{6} \\
--\frac{1}{6} & -\frac{1}{6} & -\frac{1}{6} & 0 & 0 & 0 & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\
-\frac{1}{4} & 0 & -\frac{1}{4} & 0 & 0 & 0 & -\frac{1}{4} & 0 & \frac{1}{4}
-\end{bmatrix}
-\begin{bmatrix}
-	v{11} \\
-	v{12} \\
-	v{13} \\
-	v{21} \\
-	v{22} \\
-	v{23} \\
-	v{31} \\
-	v{32} \\
-	v{33}
-\end{bmatrix} \\
-where,\ f(x, y) & = a_{00} + a_{10}x + a_{01}y + a_{11}xy
+\hat{W} & = (X^TX)^{-1}X^Tf & on\ minimizing\ the\ MSE,\ e^Te.
 \end{align}
-If the distance between two adjacent pixels along x and y were to be both $d_x$ and $d_y$ respectively, the interpolation becomes :
+We need $X^TX$ to be invertable for a solution to exist for the given interpolation problem.
+Let us first show that $dim(nullspace\ of\ X) = 0$. We're going to prove that the column vectors of X are linearly independent, i.e. $c_1X_1 + c_2X_2 + c_3X_3 + c_4X_4 = 0\ \implies\ c_1 = c_2 = c_3 = c_4 = 0$ where $X = [X_1\ X_2\ X_3\ X_4]$ \\
+On taking $c_1X_1 + c_2X_2 + c_3X_3 + c_4X_4 = 0$,
 \begin{align}
-f(x, y) & = a_{00} + a_{10}\frac{x}{d_x} + a_{01}\frac{y}{d_y} + a_{11}\frac{xy}{d_x d_y}
+We\ have,\ & c_1 + c_2x_1 + c_3y_1 + c_4x_1y_1 = 0 \\
+& c_1 + c_2x_1 + c_3y_2 + c_4x_1y_2 = 0 \\
+\implies\ & c_3(y_1 - y_2) + c_4x_1(y_1 - y_2) = 0\ & from\ (6) - (7) \\
+\implies\ & (y_1 - y_2)(c_3 + c_4x_1) = 0 \\
+\implies\ & c_3 + c_4x_1 = 0\ & \because\ y_1 \neq y_2 \\
+Similiarly,\ using\ & c_1 + c_2x_2 + c_3y_1 + c_4x_2y_1 = 0 \\
+& c_1 + c_2x_2 + c_3y_2 + c_4x_2y_2 = 0 \\
+we\ get,\ & c_3 + c_4x_2 = 0 \\
+\implies\ & c_3 = c_4 = 0\ & from\ (10),\ (13)\ and\ \because\ x_1 \neq x_2 \\  
+Also, \ c_1 = c_2 = 0\ & from\ (6),\ (11),\ (14)\ and\ \because\ x_1 \neq x_2
 \end{align}
-From the above discussion, we have shown that the bilinear interpolation in an 8-neighborhood can always be used to get a solution.
+$\therefore\ c_1X_1 + c_2X_2 + c_3X_3 + c_4X_4 = 0\ \implies\ c_1 = c_2 = c_3 = c_4 = 0$ \\
+$\therefore\ dim(columnspace\ of\ X) = 4$ as the column vectors are linearly independent.
+\begin{align}
+Hence,\ dim(nullspace\ of\ X) = 4 - 4 = 0
+\end{align}
+
+We're now going to prove that $nullspace\ of\ X = nullspace\ of\ X^TX$.
+\begin{align*}
+Let\ y \in nullspace\ of\ X \\
+\therefore\ & Xy = 0 \\
+\implies\ & X^TXy = 0 \\
+\implies\ & y \in nullspace\ of\ X^TX \\
+\therefore\ & nullspace\ of\ X \subseteq\ nullspace\ of\ X^TX \\
+\\
+Let\ y \in nullspace\ of\ X^TX \\
+\therefore\ & X^TXy = 0 \\
+\implies\ & y^TX^TXy = 0 \\
+\implies\ & (Xy)^TXy = 0 \\
+\implies\ & Xy = 0 \\
+\implies\ & y \in nullspace\ of\ X \\
+\therefore\ & nullspace\ of\ X^TX \subseteq\ nullspace\ of\ X\
+\end{align*}
+\begin{align}
+\therefore\ nullspace\ of\ X^TX = nullspace\ of\ X
+\end{align}
+Hence, $dim(nullspace\ of\ X^TX) = dim(nullspace\ of\ X) = 0$ using (17) and (18). \\
+$X^TX$ is a $4\times4$ square matrix. It has full rank since its nullspace is 0. $\therefore\ X^TX$ is invertible and hence bilinear interpolation in an 8-neighborhood can always be used to get a solution for $W$ and (1) can be constructed.
 \section*{Solution 4}
 $$\text{We are assuming that }\eta_i (x_1, y_1)\ and\ \eta_j (x_2, y_2)\text{ are independent if i }\neq j\ or\ x_1 \neq x_2\ or\ y_1 \neq y_w.$$
 \begin{align}
