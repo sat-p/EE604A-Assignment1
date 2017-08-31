@@ -21,8 +21,8 @@ bookmarksopenlevel=2]{hyperref}
 
 \usepackage{geometry}
 \geometry{total={210mm,297mm},
-left=25mm,right=25mm,%
-bindingoffset=0mm, top=20mm,bottom=20mm}
+left=15mm,right=15mm,%
+bindingoffset=0mm, top=15mm,bottom=15mm}
 
 \usepackage{ mathrsfs }
 
@@ -134,7 +134,167 @@ Target : low.jpg, Reference : high.jpg \\
 \end{center}
 
 \section*{Solution 3}
-Bilinear interpolation in a 8-connect neighborhood.
+Let the 8-connect neighborhood of a point be given by
+\begin{tabular}{| c | c | c |}
+	\hline
+	v11	& v12 & v13 \\
+	\hline
+	v21 & v22 & v23 \\
+	\hline
+	v31 & v32 & v33 \\
+	\hline
+\end{tabular}
+In blinear interpolation, we fit a function $f(x, y)$ using weights $a_{ij}$ in the following manner :
+\begin{align}
+f(x, y) & = \Sigma_{i = 0}^1\Sigma_{j = 0}^1 a_{ij}x^i y^j
+\end{align}
+Let $x = 0$ and $y = 0$ at the center of the above neighborhood. Also let $e$ be the error vector. Also, let us assume that the distance between two adjacent pixels along x and y be both 1.
+\begin{align}
+We\ have,\ \begin{bmatrix}
+				f(-1, -1) \\
+				f(-1,  0) \\
+				f(-1,  1) \\
+				f( 0, -1) \\
+				f( 0,  0) \\
+				f( 0,  1) \\
+				f( 1, -1) \\
+				f( 1,  0) \\
+				f( 1,  1)
+			\end{bmatrix} & = 
+			\begin{bmatrix}
+				1 &&	-1 &&	-1 &&	 1 \\
+				1 &&	 0 &&	-1 &&    0 \\
+				1 && 	 1 &&	-1 &&	-1 \\
+				1 &&	-1 &&	 0 &&	 0 \\
+				1 &&	 0 &&	 0 &&	 0 \\
+				1 &&	 1 &&	 0 &&	 0 \\
+				1 &&	-1 &&	 1 &&	-1 \\
+				1 &&	 0 &&	 1 &&	 0 \\
+				1 &&	 1 &&	 1 &&	 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				a_{00} \\
+				a_{01} \\
+				a_{10} \\
+				a_{11}	
+			\end{bmatrix} & from\ (1)\\
+\implies\ \begin{bmatrix}
+				v{11} \\
+				v{12} \\
+				v{13} \\
+				v{21} \\
+				v{22} \\
+				v{23} \\
+				v{31} \\
+				v{32} \\
+				v{33}
+			\end{bmatrix} - e & = 
+			\begin{bmatrix}
+				1 &&	-1 &&	-1 &&	 1 \\
+				1 &&	 0 &&	-1 &&    0 \\
+				1 && 	 1 &&	-1 &&	-1 \\
+				1 &&	-1 &&	 0 &&	 0 \\
+				1 &&	 0 &&	 0 &&	 0 \\
+				1 &&	 1 &&	 0 &&	 0 \\
+				1 &&	-1 &&	 1 &&	-1 \\
+				1 &&	 0 &&	 1 &&	 0 \\
+				1 &&	 1 &&	 1 &&	 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				a_{00} \\
+				a_{01} \\
+				a_{10} \\
+				a_{11}	
+			\end{bmatrix}
+\end{align}
+Our aim is to determine $\begin{bmatrix}
+							a_{00} \\
+							a_{01} \\
+							a_{10} \\
+							a_{11}	
+						  \end{bmatrix}$ while minimizing the the MSE, $E^TE$. \\
+Let $f = \begin{bmatrix}
+				v{11} \\
+				v{12} \\
+				v{13} \\
+				v{21} \\
+				v{22} \\
+				v{23} \\
+				v{31} \\
+				v{32} \\
+				v{33}
+			\end{bmatrix}$,
+    $X = \begin{bmatrix}
+				1 &&	-1 &&	-1 &&	 1 \\
+				1 &&	 0 &&	-1 &&    0 \\
+				1 && 	 1 &&	-1 &&	-1 \\
+				1 &&	-1 &&	 0 &&	 0 \\
+				1 &&	 0 &&	 0 &&	 0 \\
+				1 &&	 1 &&	 0 &&	 0 \\
+				1 &&	-1 &&	 1 &&	-1 \\
+				1 &&	 0 &&	 1 &&	 0 \\
+				1 &&	 1 &&	 1 &&	 1
+			\end{bmatrix}$ and
+	$W = \begin{bmatrix}
+			a_{00} \\
+			a_{01} \\
+			a_{10} \\
+			a_{11}	
+		 \end{bmatrix}$
+\begin{align}
+\therefore\ e & = f - XW \\
+\end{align}
+The best estimate for W is given by : 
+\begin{align}
+\hat{W} & = (X^TX)^{-1}X^Tf & on\ minimizing\ the\ MSE. \\
+& = \begin{bmatrix}
+\frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
+-\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} &  0 & \frac{1}{6} \\
+-\frac{1}{6} & -\frac{1}{6} & -\frac{1}{6} & 0 & 0 & 0 & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\
+\frac{1}{4} & 0 & -\frac{1}{4} & 0 & 0 & 0 & -\frac{1}{4} & 0 & \frac{1}{4}
+\end{bmatrix}
+\begin{bmatrix}
+	v{11} \\
+	v{12} \\
+	v{13} \\
+	v{21} \\
+	v{22} \\
+	v{23} \\
+	v{31} \\
+	v{32} \\
+	v{33}
+\end{bmatrix} \\
+\implies\ 
+\begin{bmatrix}
+	a_{00} \\
+	a_{01} \\
+	a_{10} \\
+	a_{11}	
+\end{bmatrix} & =
+\begin{bmatrix}
+\frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} & \frac{1}{9} \\
+-\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} & 0 & \frac{1}{6} & -\frac{1}{6} &  0 & \frac{1}{6} \\
+-\frac{1}{6} & -\frac{1}{6} & -\frac{1}{6} & 0 & 0 & 0 & \frac{1}{6} & \frac{1}{6} & \frac{1}{6} \\
+\frac{1}{4} & 0 & -\frac{1}{4} & 0 & 0 & 0 & -\frac{1}{4} & 0 & \frac{1}{4}
+\end{bmatrix}
+\begin{bmatrix}
+	v{11} \\
+	v{12} \\
+	v{13} \\
+	v{21} \\
+	v{22} \\
+	v{23} \\
+	v{31} \\
+	v{32} \\
+	v{33}
+\end{bmatrix} \\
+where,\ f(x, y) & = a_{00} + a_{10}x + a_{01}y + a_{11}xy
+\end{align}
+If the distance between two adjacent pixels along x and y were to be both $d_x$ and $d_y$ respectively, the interpolation becomes :
+\begin{align}
+f(x, y) & = a_{00} + a_{10}\frac{x}{d_x} + a_{01}\frac{y}{d_y} + a_{11}\frac{xy}{d_x d_y}
+\end{align}
+From the above discussion, we have shown that the bilinear interpolation in an 8-neighborhood can always be used to get a solution.
 \section*{Solution 4}
 $$\text{We are assuming that }\eta_i (x_1, y_1)\ and\ \eta_j (x_2, y_2)\text{ are independent if i }\neq j\ or\ x_1 \neq x_2\ or\ y_1 \neq y_w.$$
 \begin{align}
@@ -313,5 +473,4 @@ The reconstruction using only magnitude spectrum appears to only contain informa
 \includegraphics[scale=1.0]{../results/Q7_sigma01.png}
 \caption{The images from left to right are as follows : (a) The original image (small.jpg), (b) The images with added zero-mean gaussian noise with $\sigma^2 = 0.1$, (c) The reconstucted image [b], (d) The image with impulse noise, (e) The reconstructed image [d]}
 \end{figure*}
-
 \end{document}
