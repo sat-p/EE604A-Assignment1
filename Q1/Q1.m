@@ -9,7 +9,7 @@
 
 MEAN = 0;
 VARIANCE = 1;
-LENGTH = 1000;
+LENGTH = 10000;
 RESOLUTION = 2; % 2 bits resolution => 4 levels
 
 %% Generating signal with required mean and variance %%%%%%%%%%%
@@ -32,7 +32,7 @@ disp (q_level);
 %% The Transition levels
 
 disp ('The Transition levels are :');
-disp (q_boundary (2 : end - 1));
+disp (q_boundary);
 
 %% The MSE values
 
@@ -61,6 +61,6 @@ text (num_it,...
 title ('MSE vs Lloyd-Max Iterations');  
 xlabel ('Number of iterations');
 ylabel ('MSE');
-                                                       
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resolution)
+function [mses, q_level, q_boundary] = lloyd_max_quantizer (signal, resolution)
     
     % [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resolution). It
     % returns the MSE values at every iteration; and the final representation and
@@ -21,7 +21,7 @@ function [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resol
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    convergence_threshold = 1e-7;
+    convergence_threshold = 1e-20;
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -39,7 +39,11 @@ function [mses, q_level, q_boundary] = lloyd_max_quantizer (sorted_signal, resol
     q_level = zeros (1, num_levels);
     q_boundary = lower_bound : init_q_width : upper_bound;
     num_values = length (sorted_signal);
-
+    
+    % Forcing the extreme transition levels to be at infinity.
+    q_boundary(1) = -Inf;
+    q_boundary(end) = Inf;
+    
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % The Lloyd-Max Quantization Algorithm
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

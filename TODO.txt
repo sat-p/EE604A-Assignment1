@@ -1,6 +1,4 @@
-Test Code of Q1.
+Test Code of Q1 in MATLAB.
 Write the answer to Q1(e).
 Commenting code of Q1 and Q2, Q6, Q7.
-Write Q3's answer.
-Filling pdf with results from codes.
 Updating Equation references.
