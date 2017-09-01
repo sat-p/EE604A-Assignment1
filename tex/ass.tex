@@ -84,42 +84,49 @@ bindingoffset=0mm, top=15mm,bottom=15mm}
 Sunset  (high.jpg)  : \url{https://www.flickr.com/photos/mediaflex/4190084346} \\
 Carving (low.jpg)   : \url{https://www.flickr.com/photos/30440933@N06/2847993403} \\
 Dog     (small.jpg) : \url{https://res.cloudinary.com/rover-com/image/upload/a_exif,c_fill,f_jpg,fl_progressive,g_face:center,h_100,q_80,w_100/remote/images/pets/4NpPzO8N/50e4a023d9/original.jpg} \\
-divyat.jpg 			 : Own work. Taken with permission.
+Face (divyat.jpg)   : Own work. Taken with permission.
 \section*{Solution 1}
 \subsection*{(a)}
-Code has been written in two MATLAB\textregistered\ \textbackslash GNU Octave files :
+Code has been written in two MATLAB\textregistered/GNU Octave files :
 \begin{itemize}
-\item Q1\textbackslash lloyd\_max\_quantizer.m : The file contating the function.
-\item Q1\textbackslash Q1.m : The script to perform the required tasks.
+\item Q1/lloyd\_max\_quantizer.m : The file contating the function.
+\item Q1/Q1.m : The script to perform the required tasks.
 \end{itemize}
 \subsection*{(b)}
-The Lloyd-Max Quantizer was run over a signal sampled from a gaussian distribution of zero mean and unit variance. \\
+The Lloyd-Max Quantizer was run over a signal sampled from a gaussian distribution of zero mean and unit variance. The length of the signal was taken to be 10000. \\
 The 4 representation levels are : -1.51440  -0.43642  0.50108  1.57091 \\
 The corresponding transition levels are : $-\infty$  -0.975410  0.032332  1.035995  $\infty$
 \subsection*{(c)}
 \begin{center}
-\includegraphics[scale=0.6]{../results/lloyd.png}
+\includegraphics[scale=0.55]{../results/lloyd.png}
 \end{center}
 \subsection*{(d)}
 \subsubsection*{Experiments}
+The length of the signal was taken to be 10000 in all the experiments. \\
 \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c | c |}
 	\hline
-	$\mu$ &	$\sigma$ &	$l_1$ &		$l_2$ &		$l_3$ &		$l_4$ &		$m_1$ &		$m_2$ &		$m_3$ &		$m_4$ &		$m_5$ &		MSE \\
+	$\mu$ &	$\sigma^2$ &$l_1$ &		$l_2$ &		$l_3$ &		$l_4$ &		$m_1$ &		$m_2$ &			$m_3$ &		$m_4$ &		$m_5$ &		MSE \\
 	\hline
-	0 &		1 &			-1.51440 &	-0.43642 &	0.50108 &	1.57091 &	$-\infty$ &	-0.975410 &	0.031332 &	1.035995 &	$\infty$ &	0.11887 \\
+	0 &		1 &			-1.52388 &	-0.45637 &	0.45432 &	1.51567 &	$-\infty$ &	-0.9901230 &	-0.0010213 &	0.9849981 &	$\infty$ &	0.11692 \\
 	\hline
-	0 &		0.5 &		-1.08358 &	-0.34192 &	0.29386 &	1.04099 &	$-\infty$ &	-0.712752 &	-0.024028 &	0.667426 &	$\infty$ &	0.05901 \\
+	0 &		0.5 &		-1.05210 &	-0.31372 &	0.31439 &	1.06498 &	$-\infty$ &	-0.068291 &		-0.00033543 &	0.68968 &	$\infty$ &	0.0572 \\
 	\hline
-	0 &		2 &			-2.20816 &  -0.71628 & 0.56213 & 	2.04503 &	$-\infty$ &	-1.46220 &	-0.77074 &	-1.30352 &	$\infty$ &	0.23625 \\
+	0 &		2 &			-2.11742 &  -0.59929 & 0.66589 & 	2.14136 &	$-\infty$ &	-1.358353 &		-0.033301 &		1.403622 &	$\infty$ &	0.23691 \\
 	\hline
-	2.3 &   1 &			0.81634 &	1.86325 &	2.77444 &	3.84569 &	$-\infty$ &	1.3398 &	2.3188 &	3.3101 &	$\infty$ &	0.11695 \\
+	2.3 &   1 &			0.76315 &	1.82872 &	2.73656 &	3.79202 &	$-\infty$ &	1.2959 &		2.2826 &	3.2643 &	$\infty$ &	0.11589 \\
 	\hline
-	2.3 &	0.5 &		1.2784 &	2.0036 &	2.6423 &	3.3939 &	$-\infty$ &	1.6410 &	2.3229 &	3.0181 &	$\infty$ &	0.059066 \\
+	2.3 &	0.5 &		1.2408 &	1.9876 &	2.6390 &	3.4106 &	$-\infty$ &	1.64142 &		2.3133 &	3.0248 &	$\infty$ &	0.059457 \\
 	\hline
-	2.3 &	2 &			0.14523 &	1.65523 & 	2.92182 &	4.4294 &	$-\infty$ &	0.90023 &	2.28853 &	3.67338 &	$\infty$ &	0.23724 \\
+	2.3 &	2 &			0.15636 &	1.66794 & 	2.98038 &	4.48356 &	$-\infty$ &	0.91215 &		2.32416 &	3.73197 &	$\infty$ &	0.23956 \\
 	\hline
 \end{tabular}
 \subsubsection*{Observations}
+\begin{enumerate}
+\item On adding a $\Delta\mu$ to the mean, while keeping $\sigma^2$ constant, the representation and transition levels obatined appear to be shifted by $\Delta\mu$ as well.
+\item The MSE value appears to be independent of the mean.
+\item As $\sigma \uparrow$, MSE $\uparrow$ and $|l_{i + 1} - l_i| \uparrow$
+\end{enumerate}
+
 \subsection*{(e)}
 Let the signal be given by $S$ and the pdf of $S$ be $p_S (s)$.
 \begin{align*}
@@ -135,50 +142,53 @@ m_i = a + \frac{b - a}{L} \times (i - 1)\ \forall\ i \in [1, L + 1]
 \end{align*}
 We next set $a_i$ :
 \begin{align*}
-a_i &  = \frac{\int_{m_i}^{m_{i + 1}} s p_S (s) ds}{\int_{m_i}^{m_{i + 1}} p_S (s) ds}\ \forall\ i \in [1, L] \\
-    & = \frac{\frac{m_{i + 1}^2 - {m_i}^2}{2(b - a)}}{\frac{(m_{i + 1} - {m_i}}{b - a}}\ \forall\ i \in [1, L] \\
+a_i &  = \frac{\int_{m_i}^{m_{i + 1}} s \times p_S (s) ds}{\int_{m_i}^{m_{i + 1}} p_S (s) ds}\ \forall\ i \in [1, L] \\
+    & = \frac{\frac{m_{i + 1}^2 - {m_i}^2}{2(b - a)}}{\frac{m_{i + 1} - {m_i}}{b - a}}\ \forall\ i \in [1, L] \\
     & = \frac{m_i + m_{i + 1}}{2}\ \forall\ i \in [1, L] \\
-    & = a + \frac{1}{b - a} \times \frac{i + i - 1}{2}\ \forall\ i \in [1, L] \\
-    & = a + \frac{2i - 1}{2(b - a)}\ \forall\ i \in [1, L]
+    & = a + \frac{b - a}{L} \times \frac{i + i - 1}{2}\ \forall\ i \in [1, L] \\
+    & = a + \frac{(b - a)(2i - 1)}{2L)}\ \forall\ i \in [1, L]
 \end{align*}
 We now set $m_i$ :
 \begin{align*}
 m_i & = \frac{a_{i - 1} + a_i}{2}\ \forall\ i \in [2, L] \\
-	& = a + \frac{1}{4(b - a)} \times (2 (i + i - 1) - 2)\ \forall\ i \in [2, L] \\
+	& = a + \frac{b - a}{4L} \times (2 (i + i - 1) - 2)\ \forall\ i \in [2, L] \\
 	& = a + \frac{b - a}{L} \times (i - 1)\ \forall\ i \in [2, L]
 \end{align*}
 $m_i$ do not change in the above step. Hence, the Lloyd-Max Quantizer has converged to a final solution.
+
 \section*{Solution 2}
 A C++ function, EE604A::histogram\_matching(), for histogram matching of cv::Mat images has been developed.
 The code required for the matching function is present in :
 \begin{itemize}
-\item Q2\textbackslash src\textbackslash histogram\_matching.cxx
-\item Q2\textbackslash src\textbackslash histogram\_matching.h 
+\item Q2/src/histogram\_matching.cxx
+\item Q2/src/histogram\_matching.h 
 \end{itemize}
-A small program which uses the histogram matching function is present in Q2\textbackslash src\textbackslash Q2.cxx
+A small program which uses the histogram matching function is present in Q2/src/Q2.cxx
 
 In order to build and run the code, the following steps need to be followed :
 \begin{enumerate}
-\item Enter Q2\textbackslash src through terminal.
+\item Enter Q2/src through terminal.
 \item run build.sh (OpenCV needs to installed and a version of g++ supporting c++14 needs to be present)
 \item Execute Q2 (the binary file) with the reference and target relative/absolute image paths. Eg. [./Q2 ../../images/high.jpg ../../images/low.jpg] or [./Q2 ../../images/low.jpg ../../images/high.jpg] (On Ubuntu)
-\item The program can be closed by Ctrl+C on the terminal or by pressing 'q' when one of the image windows is open.
+\item The program can be closed by Ctrl+C on the terminal or by pressing `q' when one of the image windows is open.
 \end{enumerate}
-REMARK : A simple plot of the the histograms can be obtained by toggling the third argument of the function EE604A::histogram\_matching() to true.
+REMARK : A simple plot of the the histograms can be obtained on the terminal by toggling the third argument of the function EE604A::histogram\_matching() to true.
 
 \subsection*{Results}
 \begin{center}
 Target : high.jpg, Reference : low.jpg \\
-\includegraphics[scale= 0.25]{../results/target1.png}
-\includegraphics[scale= 0.25]{../results/reference1.png}
-\includegraphics[scale= 0.25]{../results/matched1.png}
+\includegraphics[scale=0.25]{../results/target1.png}
+\includegraphics[scale=0.25]{../results/reference1.png}
+\includegraphics[scale=0.25]{../results/matched1.png}
 \end{center}
 \begin{center}
 Target : low.jpg, Reference : high.jpg \\
-\includegraphics[scale= 0.25]{../results/target2.png}
-\includegraphics[scale= 0.25]{../results/reference2.png}
-\includegraphics[scale= 0.25]{../results/matched2.png}
+\includegraphics[scale=0.25]{../results/target2.png}
+\includegraphics[scale=0.25]{../results/reference2.png}
+\includegraphics[scale=0.25]{../results/matched2.png}
 \end{center}
+
+\pagebreak
 
 \section*{Solution 3}
 Let the 8-connect neighborhood of a point be given by
@@ -396,11 +406,10 @@ We\ can\ also\ write,\
 	u \\
 	v \\
 	w
-\end{bmatrix} & from\ (19),\ (28) \\
-Now,\ \nabla^2 f(u, v, w) & = \frac{\partial^2 f}{\partial^2 u} +
-							  \frac{\partial^2 f}{\partial^2 v} +
-						      \frac{\partial^2 f}{\partial^2 w} \\
-\frac{\partial f}{\partial u} & =
+\end{bmatrix} & from\ (19),\ (28)
+\end{align}
+\begin{align}
+Now,\ \frac{\partial f}{\partial u} & =
 \frac{\partial f}{\partial x}\frac{\partial x}{\partial u} +
 \frac{\partial f}{\partial y}\frac{\partial y}{\partial u} +
 \frac{\partial f}{\partial z}\frac{\partial z}{\partial u} \\
@@ -427,7 +436,7 @@ R_{11}
   +	 \frac{\partial^2 f}{\partial z \partial x} \frac{\partial z}{\partial u}) \notag \\
 & + R_{13}(\frac{\partial^2 f}{\partial x \partial z} \frac{\partial x}{\partial u}
   + \frac{\partial^2 f}{\partial y \partial z} \frac{\partial y}{\partial u} 
-  +	 \frac{\partial^2 f}{\partial^2 z} \frac{\partial z}{\partial u}) & from\ (32)\ and\ chain\ rule \\
+  +	 \frac{\partial^2 f}{\partial^2 z} \frac{\partial z}{\partial u}) & from\ (31)\ and\ chain\ rule \\
 & = R_{11}^2\frac{\partial^2 f}{\partial^2 x} +
 	R_{11}R_{12}\frac{\partial^2 f}{\partial y \partial x} +
 	R_{11}R_{13}\frac{\partial^2 f}{\partial z \partial x}\notag \\
@@ -458,49 +467,50 @@ Similarily,\ \frac{\partial^2 f}{\partial^2 v} & =
 	R_{33}R_{32}\frac{\partial^2 f}{\partial y \partial z} +
 	R_{33}^2\frac{\partial^2 f}{\partial^2 z}
 \end{align}
-On performing $(36) + (37) + (38)$, we get using (22), (23), (23), (26) and (27)
+On performing $(35) + (36) + (37)$, we get using (22), (23), (23), (26) and (27)
 \begin{align}
 \frac{\partial^2 f}{\partial^2 u} +
 \frac{\partial^2 f}{\partial^2 v} +
 \frac{\partial^2 f}{\partial^2 w} & =
-\frac{\partial^2 f}{\partial^2 u} +
-\frac{\partial^2 f}{\partial^2 v} +
-\frac{\partial^2 f}{\partial^2 w}\\
+\frac{\partial^2 f}{\partial^2 x} +
+\frac{\partial^2 f}{\partial^2 y} +
+\frac{\partial^2 f}{\partial^2 z}\\
 \implies\ \nabla^2 f(u, v, w) & = \frac{\partial^2 f}{\partial^2 u} +
 							  \frac{\partial^2 f}{\partial^2 v} +
 						      \frac{\partial^2 f}{\partial^2 w} \\
 						      & = \frac{\partial^2 f}{\partial^2 x} +
 							  \frac{\partial^2 f}{\partial^2 y} +
-						      \frac{\partial^2 f}{\partial^2 z} & from\ (39) \\
-						      & =  \nabla^2 f(x, y, z)
+						      \frac{\partial^2 f}{\partial^2 z} & from\ (38) \\
+						      & =  \nabla^2 f(x, y, z) \\
+\implies & Laplacian\ (\nabla^2)\ is\ isotropic\ (rotation\ invariant). \notag
 \end{align}
-\begin{align*}
-q.e.d
-\end{align*}
+
 \section*{Solution 6}
-A C++ file, Q6\textbackslash src \textbackslash Q6.cxx, contains the code required to perform the required task.
+A C++ file, Q6/src/Q6.cxx, contains the code required to perform the required task.
 
 In order to build and run the code, the following steps need to be followed :
 \begin{enumerate}
-\item Enter Q6\textbackslash src through terminal.
+\item Enter Q6/src through terminal.
 \item run build.sh (OpenCV needs to installed and a version of g++ supporting c++14 needs to be present)
 \item Execute Q6 (the binary file) with the relative/absolute image path. Eg. [./Q6 ../../images/divyat.jpg] or [./Q6 ../../images/low.jpg] (On Ubuntu)
 \item The program can be closed by Ctrl+C on the terminal or by pressing `q' when one of the image windows is open.
 \end{enumerate}
+\pagebreak
 \subsection*{Results}
 \begin{center}
 divyat.jpg \\
-\includegraphics[scale= 0.25]{../results/divyat.png}
-\includegraphics[scale= 0.25]{../results/divyat_spectrum.png}
-\includegraphics[scale= 0.25]{../results/divyat_phase.png}
-\includegraphics[scale= 0.25]{../results/divyat_magnitude.png}
+\includegraphics[scale= 0.24]{../results/divyat.png}
+\includegraphics[scale= 0.24]{../results/divyat_spectrum.png}
+\includegraphics[scale= 0.24]{../results/divyat_phase.png}
+\includegraphics[scale= 0.24]{../results/divyat_magnitude.png}
 \end{center}
+\pagebreak
 \begin{center}
 low.jpg \\
-\includegraphics[scale= 0.25]{../results/low.png}
-\includegraphics[scale= 0.25]{../results/low_spectrum.png}
-\includegraphics[scale= 0.25]{../results/low_phase.png}
-\includegraphics[scale= 0.25]{../results/low_magnitude.png}
+\includegraphics[scale= 0.29]{../results/low.png}
+\includegraphics[scale= 0.29]{../results/low_spectrum.png}
+\includegraphics[scale= 0.29]{../results/low_phase.png}
+\includegraphics[scale= 0.29]{../results/low_magnitude.png}
 \end{center}
 \subsection*{Observations}
 \subsubsection*{Reconstruction using only phase spectrum}
@@ -508,28 +518,27 @@ From the above the tests, it can be inferred that on performing reconstruction u
 \subsubsection*{Reconstruction using only magnitude spectrum}
 The reconstruction using only magnitude spectrum appears to only contain information regarding the prominent greylevels present in the image.
 
-\pagebreak
 \section*{Solution 7}
 Code has been written in two .cxx files :
 \begin{enumerate}
-\item Q7\textbackslash src \textbackslash pixel\_nlm.cxx : Contains the function, EE604A::pixel\_nlm(), used to perform neighborhood filter using non-local pixel values.
-\item Q7\textbackslash src \textbackslash Q7.cxx : Calls the contained function, task(), which adds noise as needed and evaluated the neighborhood filtering method.
+\item Q7/src/pixel\_nlm.cxx : Contains the function, EE604A::pixel\_nlm(), used to perform neighborhood filter using non-local pixel values.
+\item Q7/src/Q7.cxx : Calls the contained function, task(), which adds noise as needed and evaluated the neighborhood filtering method.
 \end{enumerate}
 
 There is also a header file present for the EE604A::pixel\_nlm() function :
 \begin{enumerate}
-\item Q7\textbackslash include \textbackslash pixel\_nlm.cxx
+\item Q7/include/pixel\_nlm.cxx
 \end{enumerate}
 
 In order to build and run the code, the following steps need to be followed :
 \begin{enumerate}
-\item Enter Q7\textbackslash src through terminal.
+\item Enter Q7/src through terminal.
 \item run build.sh (OpenCV needs to installed and a version of g++ supporting c++14 needs to be present)
 \item Execute Q7 (the binary file) with the relative/absolute image path. Eg. [./Q7 ../../images/small.jpg] (On Ubuntu)
 \item The program can be closed by Ctrl+C on the terminal or by pressing `q' when one of the image windows is open.
 \end{enumerate}
-\begin{figure*}[h]
+\begin{center}
 \includegraphics[scale=1.0]{../results/Q7_sigma01.png}
-\caption{The images from left to right are as follows : (a) The original image (small.jpg), (b) The images with added zero-mean gaussian noise with $\sigma^2 = 0.1$, (c) The reconstucted image [b], (d) The image with impulse noise, (e) The reconstructed image [d]}
-\end{figure*}
+\end{center}
+The images from left to right are as follows : (a) The original image (small.jpg), (b) The images with added zero-mean gaussian noise with $\sigma^2 = 0.01$, (c) The reconstucted image [b], (d) The image with impulse noise, (e) The reconstructed image [d]
 \end{document}
