@@ -25,6 +25,7 @@ left=15mm,right=15mm,%
 bindingoffset=0mm, top=15mm,bottom=15mm}
 
 \usepackage{ mathrsfs }
+\usepackage{ mathtools }
 
 \linespread{1.3}
 
@@ -105,24 +106,49 @@ The corresponding transition levels are : $-\infty$  -0.975410  0.032332  1.0359
 	\hline
 	$\mu$ &	$\sigma$ &	$l_1$ &		$l_2$ &		$l_3$ &		$l_4$ &		$m_1$ &		$m_2$ &		$m_3$ &		$m_4$ &		$m_5$ &		MSE \\
 	\hline
-	0 &		1 &			-1.51440 &	-0.43642 &	0.50108 &	1.57091 &	$-\infty$ &		-0.975410 &	0.031332 &	1.035995 &	$\infty$ &		0.11887 \\
+	0 &		1 &			-1.51440 &	-0.43642 &	0.50108 &	1.57091 &	$-\infty$ &	-0.975410 &	0.031332 &	1.035995 &	$\infty$ &	0.11887 \\
 	\hline
-	0 &		0.5 &		-1.08358 &	-0.34192 &	0.29386 &	1.04099 &	$-\infty$ &	-0.712752 &	-0.024028 &	0.667426 &	$\infty$ &		0.05901 \\
+	0 &		0.5 &		-1.08358 &	-0.34192 &	0.29386 &	1.04099 &	$-\infty$ &	-0.712752 &	-0.024028 &	0.667426 &	$\infty$ &	0.05901 \\
 	\hline
-	0 &		2 &			-2.20816 &  -0.71628 & 0.56213 & 	2.04503 &	$-\infty$ &	-1.46220 &	-.0.77074 &	-1.30352 &	$\infty$ &		0.23625 \\
+	0 &		2 &			-2.20816 &  -0.71628 & 0.56213 & 	2.04503 &	$-\infty$ &	-1.46220 &	-0.77074 &	-1.30352 &	$\infty$ &	0.23625 \\
 	\hline
-	2.3 &   1 &			0.81634 &	1.86325 &	2.77444 &	3.84569 &	$-\infty$ &		1.3398 &	2.3188 &	3.3101 &	$\infty$ &		0.11695 \\
+	2.3 &   1 &			0.81634 &	1.86325 &	2.77444 &	3.84569 &	$-\infty$ &	1.3398 &	2.3188 &	3.3101 &	$\infty$ &	0.11695 \\
 	\hline
-	2.3 &	0.5 &		1.2784 &	2.0036 &	2.6423 &	3.3939 &	$-\infty$ &		1.6410 &	2.3229 &	3.0181 &	$\infty$ &		0.059066 \\
+	2.3 &	0.5 &		1.2784 &	2.0036 &	2.6423 &	3.3939 &	$-\infty$ &	1.6410 &	2.3229 &	3.0181 &	$\infty$ &	0.059066 \\
 	\hline
-	2.3 &	2 &			0.14523 &	1.65523 & 	2.92182 &	4.4294 &	$-\infty$ &	0.90023 &	2.28853 &	3.67338 &	$\infty$ &		0.23724 \\
+	2.3 &	2 &			0.14523 &	1.65523 & 	2.92182 &	4.4294 &	$-\infty$ &	0.90023 &	2.28853 &	3.67338 &	$\infty$ &	0.23724 \\
 	\hline
 \end{tabular}
 \subsubsection*{Observations}
 \subsection*{(e)}
-
+Let the signal be given by $S$ and the pdf of $S$ be $p_S (s)$.
+\begin{align*}
+Now,\ p_S (s) = \begin{dcases*}
+					\frac{1}{b - a}	& $a \leq s < b$\\
+					0  				& otherwise
+				\end{dcases*}
+\end{align*}
+Let us assume that there `L' representation levels, $a_i$ be the representation levels and $m_i$ be the transition levels. \\
+We begin by initializing $m_i$ uniformly :
+\begin{align*}
+m_i = a + \frac{b - a}{L} \times (i - 1)\ \forall\ i \in [1, L + 1]
+\end{align*}
+We next set $a_i$ :
+\begin{align*}
+a_i &  = \frac{\int_{m_i}^{m_{i + 1}} s p_S (s) ds}{\int_{m_i}^{m_{i + 1}} p_S (s) ds}\ \forall\ i \in [1, L] \\
+    & = \frac{\frac{m_{i + 1}^2 - {m_i}^2}{2(b - a)}}{\frac{(m_{i + 1} - {m_i}}{b - a}}\ \forall\ i \in [1, L] \\
+    & = \frac{m_i + m_{i + 1}}{2}\ \forall\ i \in [1, L] \\
+    & = a + \frac{1}{b - a} \times \frac{i + i - 1}{2}\ \forall\ i \in [1, L] \\
+    & = a + \frac{2i - 1}{2(b - a)}\ \forall\ i \in [1, L]
+\end{align*}
+We now set $m_i$ :
+\begin{align*}
+m_i & = \frac{a_{i - 1} + a_i}{2}\ \forall\ i \in [2, L] \\
+	& = a + \frac{1}{4(b - a)} \times (2 (i + i - 1) - 2)\ \forall\ i \in [2, L] \\
+	& = a + \frac{b - a}{L} \times (i - 1)\ \forall\ i \in [2, L]
+\end{align*}
+$m_i$ do not change in the above step. Hence, the Lloyd-Max Quantizer has converged to a final solution.
 \section*{Solution 2}
-
 A C++ function, EE604A::histogram\_matching(), for histogram matching of cv::Mat images has been developed.
 The code required for the matching function is present in :
 \begin{itemize}
