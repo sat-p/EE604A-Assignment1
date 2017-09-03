@@ -9,18 +9,22 @@
 
 MEAN = 0;
 VARIANCE = 1;
-LENGTH = 10000;
-RESOLUTION = 2; % 2 bits resolution => 4 levels
+L = 4;          % Number of representation levels
+MIN = -10;      % Expected minimum of signal
+MAX = 10;       % Expected maximum of signal
 
 %% Generating signal with required mean and variance %%%%%%%%%%%
 
 std_dev = sqrt (VARIANCE);
-signal = MEAN + randn (LENGTH, 1) * std_dev;
+pdf = @(x) normal (x, MEAN, VARIANCE);
 
 %% Calling Lloyd-Max Quantizer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-[mses, q_level, q_boundary] = lloyd_max_quantizer (signal,...
-                                                   RESOLUTION);
+[mses, q_level, q_boundary] = lloyd_max_quantizer_function (pdf,...
+                                                            L,...
+                                                            MAX,...
+                                                            MIN,...
+                                                            true);
 
 %% Output %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                                                    
