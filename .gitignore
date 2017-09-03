@@ -35,3 +35,6 @@
 *.aux
 *.log
 *.synctex.gz
+
+# Temperory files
+*~
