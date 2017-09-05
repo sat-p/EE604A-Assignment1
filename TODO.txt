@@ -1,3 +1,3 @@
-Incorporating new version of Q1.
 Commenting code of Q1 and Q2, Q6, Q7.
+Check if Q6 is providing the correct results.
 Updating Equation references.

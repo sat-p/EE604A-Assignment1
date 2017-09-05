@@ -7,8 +7,8 @@
 
 %% PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-MEAN = 0;
-VARIANCE = 1;
+MEAN = 2.3;
+VARIANCE = 2;
 L = 4;          % Number of representation levels
 MIN = -10;      % Expected minimum of signal
 MAX = 10;       % Expected maximum of signal
