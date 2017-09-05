@@ -350,12 +350,13 @@ Let\ y \in nullspace\ of\ X^TX \\
 \therefore\ nullspace\ of\ X^TX = nullspace\ of\ X
 \end{align}
 Hence, $dim(nullspace\ of\ X^TX) = dim(nullspace\ of\ X) = 0$ using (17) and (18). \\
-$X^TX$ is a $4\times4$ square matrix. It has full rank since its nullspace is 0. $\therefore\ X^TX$ is invertible and hence bilinear interpolation in an 8-neighborhood can always be used to get a solution for $W$ and (1) can be constructed.
+$X^TX$ is a $4\times4$ square matrix. It has full rank since its nullspace is 0. $\therefore\ X^TX$ is invertible and hence bilinear interpolation in an 8-neighborhood can always be used to get a solution for $W$ and (1) can be constructed. \\
+The linear system is overdetermined, but it always has a rank of 4. Hence, an approximate solution can always be obtained through the pseudoinverse.
 
 \pagebreak
 
 \section*{Solution 4}
-$$\text{We are assuming that }\eta_i (x_1, y_1)\ and\ \eta_j (x_2, y_2)\text{ are independent if i }\neq j\ or\ x_1 \neq x_2\ or\ y_1 \neq y_w.$$
+$\text{We are assuming that }\eta_i (x_1, y_1)\ and\ \eta_j (x_2, y_2)\text{ are independent if i }\neq j\ or\ x_1 \neq x_2\ or\ y_1 \neq y_2.$
 \begin{align}
 \therefore\ if\ i \neq j,\ E[\eta_i(x, y)\eta_j(x, y)] & = 0
 \end{align}
@@ -365,7 +366,7 @@ Also,\ f_i(x, y) & = f(x, y) \\
 Now,\ \hat{g}(x, y)& = \frac{1}{K} \Sigma_{i = 1}^K g_i(x, y) \\
 & = \frac{1}{K}K f(x, y) + \frac{1}{K}\Sigma_{i = 1}^K \eta_i(x, y) \\
 & = f(x, y) + \frac{1}{K}\Sigma_{i = 1}^K \eta_i(x, y) \\
-Now,\ noise\ variance,\ E[(\hat{g(x, y)} - f(x, y))^2] & = E[(\frac{1}{K}\Sigma_{i = 1}^K \eta_i(x, y))^2] \\
+Now,\ noise\ variance,\ E[(\hat{g}(x, y) - f(x, y))^2] & = E[(\frac{1}{K}\Sigma_{i = 1}^K \eta_i(x, y))^2] \\
 & = \frac{1}{K^2}\Sigma_{i = 1}^K\Sigma_{j = 1}^K E[\eta_i(x, y)\eta_j(x, y)] \\
 & = \frac{1}{K^2}\Sigma_{i = 1}^K E[\eta_i(x, y)^2] & from\ (18) \\
 & = \frac{1}{K^2}\Sigma_{i = 1}^K \sigma^2 & \because\ E[\eta_i(x, y)^2] = \sigma^2 \\
@@ -474,7 +475,7 @@ Similarily,\ \frac{\partial^2 f}{\partial^2 v} & =
 	R_{33}R_{32}\frac{\partial^2 f}{\partial y \partial z} +
 	R_{33}^2\frac{\partial^2 f}{\partial^2 z}
 \end{align}
-On performing $(35) + (36) + (37)$, we get using (22), (23), (23), (26) and (27)
+On performing $(35) + (36) + (37)$, we get using (22), (23), (24), (26) and (27)
 \begin{align}
 \frac{\partial^2 f}{\partial^2 u} +
 \frac{\partial^2 f}{\partial^2 v} +
