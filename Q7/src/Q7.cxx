@@ -8,7 +8,7 @@
 /*****************************************************************************/
 
 // Parameters for gaussian case
-constexpr float sigma = 0.01;
+constexpr float sigma = 0.1;    // sigma^2 = 0.01
 constexpr float multiplier = 10;
 
 // Parameters for impulse case

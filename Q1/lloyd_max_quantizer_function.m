@@ -12,8 +12,8 @@ function [mses, q_level, q_boundary] = lloyd_max_quantizer_function (pdf, levels
     % and transition levels.
     % 
     % mses       : The MSE valus at every iteration.
-    % q_level    : The representation levels (2^resolution levels)
-    % q_boundary : The transition levels ((2^resolution) + 1 levels)
+    % q_level    : The representation levels
+    % q_boundary : The transition levels
     %
     % pdf        : The pdf of the signal
     % levels     : The number of representation levels
