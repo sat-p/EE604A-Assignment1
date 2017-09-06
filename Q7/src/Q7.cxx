@@ -35,11 +35,11 @@ void task (const cv::Mat& img)
     
     const auto& gauss_img = float_img + eta;
     const auto& denoised_gauss_img = EE604A::pixel_nlm (gauss_img,
-                                                  sigma * multiplier);
+                                                        sigma * multiplier);
     
     /**** IMPULSE NOISE **********************************/
     
-    cv::RNG rng;
+    cv::RNG rng; // Random Number Generator
     
     cv::Mat_<float> impulse_img = float_img.clone();
     
@@ -48,6 +48,7 @@ void task (const cv::Mat& img)
         
         const float p = rng.uniform (0.f, 1.f);
         
+        // Adding noise
         if (p < p_a)
             *it += a;
         else if (p < p_noise)
@@ -55,12 +56,14 @@ void task (const cv::Mat& img)
         else
             continue;
         
+        // Trimming if value is < 0 or > 1
         if (*it < 0)
             *it = 0;
         else if (*it > 1)
             *it = 1;
     }
     
+    // NLM
     const auto& denoised_impulse_img = EE604A::pixel_nlm (impulse_img,
                                                           h);
     
@@ -89,6 +92,16 @@ int main (int argc, char** argv)
     }
     
     const auto& img = cv::imread (argv[1], cv::IMREAD_GRAYSCALE);
+    const int N = img.rows * img.cols;
+    
+    if (!N) {
+        std::cerr << "Unable to load one of the images. "
+                    << "Please enter correct path"
+                    << std::endl;
+                    
+            return -1;
+    }
+    
     task (img);
     
     std::cout << "Press 'q' to exit" << std::endl;

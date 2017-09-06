@@ -7,8 +7,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function p = normal (x, mean, variance)
-    % p = normal (x, mean, variance). It returns the value at of the
-    % gaussian pdf with the provided, mean and variance.
+    % p = normal (x, mean, variance). It returns the value at x for
+    % the gaussian pdf with the provided, mean and variance.
     %
     % x         : scalar input
     % y         : scalar input
@@ -16,7 +16,7 @@ function p = normal (x, mean, variance)
     %
     % p         : scalar output
     
-    INV_ROOT_2PI = 0.3989422804;
+    INV_ROOT_2PI = 0.3989422804; % 1 / (2 * pi)^2
     
     diff = x - mean;
     p = exp(-diff' * diff/(2 * variance)) * INV_ROOT_2PI;

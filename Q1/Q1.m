@@ -7,11 +7,11 @@
 
 %% PARAMETERS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-MEAN = 2.3;
-VARIANCE = 2;
+MEAN = 0;
+VARIANCE = 1;
 L = 4;          % Number of representation levels
-MIN = -10;      % Expected minimum of signal
-MAX = 10;       % Expected maximum of signal
+MIN = -10;      % Guess for minimum of signal
+MAX = 10;       % Guess for maximum of signal
 
 %% Generating signal with required mean and variance %%%%%%%%%%%
 

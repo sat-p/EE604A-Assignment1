@@ -50,7 +50,7 @@ EE604A::histogram_matching (const cv::Mat& tar, const cv::Mat& ref, bool plot)
     std::array<int, L> tar_hist, ref_hist;
     std::array<int, L> T_tar, T_ref;
     
-    std::array<int, L> T_inv_ref;
+    std::array<int, L> T;
     
     const int N_tar = tar.rows * tar.cols;
     const int N_ref = ref.rows * ref.cols;
@@ -58,35 +58,42 @@ EE604A::histogram_matching (const cv::Mat& tar, const cv::Mat& ref, bool plot)
     tar_hist.fill (0);
     ref_hist.fill (0);
     
+    /***** Constructing Histograms ***********************/
+    
     for (auto it = ref.begin<pixel_t>(); it != ref.end<pixel_t>(); ++it)
         ++ref_hist[*it];
     
     for (auto it = tar.begin<pixel_t>(); it != tar.end<pixel_t>(); ++it)
         ++tar_hist[*it];
     
+    /***** Constructing CDFs *****************************/
+    
     long long sum = 0;
     for (int idx = 0; idx < tar_hist.size(); ++idx) {
         
-        assert (N_tar);
         sum += tar_hist[idx] * L_max;
         T_tar[idx] = sum / N_tar;
     }
     
     sum = 0;
-    int last_s = -1;
-    
     for (int idx = 0; idx < ref_hist.size(); ++idx) {
     
         sum += ref_hist[idx] * L_max;
-        
-        assert (N_ref);
-        const int cur_s = sum / N_ref;
-        
-        for (int idx2 = last_s + 1; idx2 <= cur_s; ++idx2)
-            T_inv_ref[idx2] = idx;
-        
-        last_s = T_ref[idx] = cur_s;
+        T_ref[idx] = sum / N_ref;
     }
+    
+    /***** Finding inverse *******************************/
+    
+    int idx2 = 0;
+    for (int idx1 = 0; idx1 < tar_hist.size(); ++idx1) {
+        
+        while (T_tar[idx1] > T_ref[idx2])
+            ++idx2;
+        
+        T[idx1] = idx2;
+    }
+    
+    /***** Matching the target image *********************/
     
     std::array<int, L> matched_hist;
     matched_hist.fill (0);
@@ -96,9 +103,11 @@ EE604A::histogram_matching (const cv::Mat& tar, const cv::Mat& ref, bool plot)
               it != matched_tar.end<pixel_t>();
             ++it) {
          
-        *it = T_inv_ref[T_tar[*it]];
+        *it = T[*it];
         ++matched_hist[*it];
     }
+    
+    /***** Plotting the histograms ***********************/
     
     if (plot) {
         

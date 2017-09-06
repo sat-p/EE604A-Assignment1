@@ -15,6 +15,18 @@ int main (int argc, char** argv)
     const auto& tar = cv::imread (argv[2], cv::IMREAD_GRAYSCALE);
     const auto& ref = cv::imread (argv[1], cv::IMREAD_GRAYSCALE);
     
+    const int N_tar = tar.rows * tar.cols;
+    const int N_ref = ref.rows * ref.cols;
+    
+    if (!N_tar || !N_ref) {
+        
+        std::cerr << "Unable to load one of the images. "
+                  << "Please enter correct path"
+                  << std::endl;
+                  
+        return -1;
+    }
+    
     // Obtaining the matched_image without printing of the histograms
     const auto& matched_tar = EE604A::histogram_matching (tar, ref, false);
     
