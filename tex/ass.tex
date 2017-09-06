@@ -76,7 +76,7 @@ bindingoffset=0mm, top=15mm,bottom=15mm}
 
 \author{Satya Prakash Panuganti, 14610}
 
-\date{1 September, 2017}
+\date{6 September, 2017}
 
 \maketitle
 
@@ -87,9 +87,9 @@ Dog     (small.jpg) : \url{https://res.cloudinary.com/rover-com/image/upload/a_e
 Face (divyat.jpg)   : Own work. Taken with permission.
 \section*{Solution 1}
 \subsection*{(a)}
-Code has been written in three MATLAB\textregistered  files :
+Code has been written in three MATLAB\textregistered\ files :
 \begin{itemize}
-\item Q1/lloyd\_max\_quantizer\_function.m : The file containing the function which retruns the mean square errors, representation levels and transition levels given the pdf of a signal.
+\item Q1/lloyd\_max\_quantizer\_function.m : The file containing the function which returns the mean square errors, representation levels and transition levels given the pdf of a signal.
 \item normal.m : File containing function which returns the pdf value at a point.
 \item Q1/Q1.m : The script to perform the required tasks.
 \end{itemize}
@@ -103,7 +103,7 @@ The corresponding transition levels are : $-\infty$  -0.9816  0.0000  0.9816  $\
 \end{center}
 \subsection*{(d)}
 \subsubsection*{Experiments}
-In all of the experiments, the transition levels were intialy choosen uniformaly between -10 and 10. The smallest and largest transition levels were than forced to $-\infty$ and $\infty$ respectively. \\
+In all of the experiments, the transition levels were intialy choosen uniformaly between -10 and 10. The smallest and largest transition levels were than forced to $-\infty$ and $\infty$ respectively before the LLoyd-Max Quantizer iterations were carried out. \\
 \begin{tabular}{| c | c | c | c | c | c | c | c | c | c | c | c |}
 	\hline
 	$\mu$ &	$\sigma^2$ &$l_1$ &		$l_2$ &		$l_3$ &		$l_4$ &		$m_1$ &		$m_2$ &			$m_3$ &		$m_4$ &		$m_5$ &		MSE \\
@@ -129,14 +129,14 @@ In all of the experiments, the transition levels were intialy choosen uniformaly
 \end{enumerate}
 
 \subsection*{(e)}
-Let the signal be given by $S$ and the pdf of $S$ be $p_S (s)$.
+Let the signal be denoted by $S$ and the pdf of $S$ be $p_S (s)$.
 \begin{align*}
 Now,\ p_S (s) = \begin{dcases*}
 					\frac{1}{b - a}	& $a \leq s < b$\\
 					0  				& otherwise
 				\end{dcases*}
 \end{align*}
-Let us assume that there `L' representation levels, $a_i$ be the representation levels and $m_i$ be the transition levels. \\
+Let us assume that there `L' representation levels, $a_i$ are the representation levels and $m_i$ are the transition levels. \\
 We begin by initializing $m_i$ uniformly :
 \begin{align*}
 m_i = a + \frac{b - a}{L} \times (i - 1)\ \forall\ i \in [1, L + 1]
@@ -209,7 +209,7 @@ In blinear interpolation, we fit a function $f(x, y)$ using weights $a_{ij}$ in 
 \begin{align}
 f(x, y) & = \Sigma_{i = 0}^1\Sigma_{j = 0}^1 a_{ij}x^i y^j
 \end{align}
-Let $x_1, x_2, x_3$ and $y_1, y_2, y_3$ be the x and y coordinates of the points in the neighborhood. It is clear that $x_1 \neq x_2$, $x_2 \neq x_3$, $x_3 \neq x_1$, $y_1 \neq y_2$, $y_2 \neq y_3$ and $y_3 \neq y_1$. Also, let $e$ be the error vector.
+Let $x_1, x_2, x_3$ and $y_1, y_2, y_3$ be the x and y coordinates of the points in the neighborhood. $x_1 \neq x_2$, $x_2 \neq x_3$, $x_3 \neq x_1$, $y_1 \neq y_2$, $y_2 \neq y_3$ and $y_3 \neq y_1$ since the points belong to different rows and colums. Also, let $e$ be the error vector.
 \begin{align}
 We\ have,\ \begin{bmatrix}
 				f(x_1, y_1) \\
@@ -351,9 +351,8 @@ Let\ y \in nullspace\ of\ X^TX \\
 \end{align}
 Hence, $dim(nullspace\ of\ X^TX) = dim(nullspace\ of\ X) = 0$ using (17) and (18). \\
 $X^TX$ is a $4\times4$ square matrix. It has full rank since its nullspace is 0. $\therefore\ X^TX$ is invertible and hence bilinear interpolation in an 8-neighborhood can always be used to get a solution for $W$ and (1) can be constructed. \\
-The linear system is overdetermined, but it always has a rank of 4. Hence, an approximate solution can always be obtained through the pseudoinverse.
+The linear system is overdetermined, but it always has a rank of 4. Hence, an approximate solution can always be obtained through the pseudoinverse. The approximate solution is given by (5).
 
-\pagebreak
 
 \section*{Solution 4}
 $\text{We are assuming that }\eta_i (x_1, y_1)\ and\ \eta_j (x_2, y_2)\text{ are independent if i }\neq j\ or\ x_1 \neq x_2\ or\ y_1 \neq y_2.$
@@ -373,6 +372,7 @@ Now,\ noise\ variance,\ E[(\hat{g}(x, y) - f(x, y))^2] & = E[(\frac{1}{K}\Sigma_
 & = \frac{\sigma^2}{K} \\
 q.e.d
 \end{align*}
+Hence, the oise variance gets reduced $K$ times by averaging.
 
 \section*{Solution 5}
 
@@ -420,7 +420,7 @@ We\ can\ also\ write,\
 Now,\ \frac{\partial f}{\partial u} & =
 \frac{\partial f}{\partial x}\frac{\partial x}{\partial u} +
 \frac{\partial f}{\partial y}\frac{\partial y}{\partial u} +
-\frac{\partial f}{\partial z}\frac{\partial z}{\partial u} \\
+\frac{\partial f}{\partial z}\frac{\partial z}{\partial u} & using\ chain\ rule \\
 & = R_{11}\frac{\partial f}{\partial x} +
 	R_{12}\frac{\partial f}{\partial y} +
 	R_{13}\frac{\partial f}{\partial z} & from\ (21), (29) \\
@@ -490,7 +490,8 @@ On performing $(35) + (36) + (37)$, we get using (22), (23), (24), (26) and (27)
 							  \frac{\partial^2 f}{\partial^2 y} +
 						      \frac{\partial^2 f}{\partial^2 z} & from\ (38) \\
 						      & =  \nabla^2 f(x, y, z) \\
-\implies & Laplacian\ (\nabla^2)\ is\ isotropic\ (rotation\ invariant). \notag
+\implies & Laplacian\ (\nabla^2)\ is\ isotropic\ (rotation\ invariant)\ since\notag \\ 
+& it\ doesn't\ change\ on\ rotating\ the\ coordinate\ frame. \notag
 \end{align}
 
 \section*{Solution 6}
@@ -521,10 +522,11 @@ low.jpg \\
 \includegraphics[scale= 0.29]{../results/low_magnitude.png}
 \end{center}
 \subsection*{Observations}
+Structure of the image seems to be stored in the phase spectrum and it appears as if the magnitude spectrum on its own does not contain useful information.
 \subsubsection*{Reconstruction using only phase spectrum}
 From the above the tests, it can be inferred that on performing reconstruction using only phase information, edges are being preserved and we are losing all the grey-levels of homogenous regions. From the spectrum plots, we can infer that the lower frequency components tend to have greater values than the higher frequency ones in general images. Thus, when we remove the magnitude information, the lower frequency components are getting more suppressed than the higer frequency components, i.e. the operation is similar to a high-pass filter. This premise explains the above images obatined using only the phase spectrum.
 \subsubsection*{Reconstruction using only magnitude spectrum}
-The reconstruction using only magnitude spectrum appears to only contain information regarding the prominent greylevels present in the image.
+The reconstruction using only magnitude spectrum appears to only contain information regarding the prominent greylevels present in the image. Removing phase information disturbs the structure of the image.
 
 \section*{Solution 7}
 Code has been written in two .cxx files :
@@ -545,6 +547,9 @@ In order to build and run the code, the following steps need to be followed :
 \item Execute Q7 (the binary file) with the relative/absolute image path. Eg. [./Q7 ../../images/small.jpg] (On Ubuntu)
 \item The program can be closed by Ctrl+C on the terminal or by pressing `q' when one of the image windows is open.
 \end{enumerate}
+
+\pagebreak
+
 \begin{center}
 \includegraphics[scale=1.0]{../results/Q7.png}
 \end{center}

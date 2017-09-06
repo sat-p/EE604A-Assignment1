@@ -26,7 +26,6 @@ void task (const cv::Mat& img)
 
     cv::Mat magnitude;
     cv::magnitude (planes[0], planes[1], magnitude);
-//     cv::phase     (planes[0], planes[1], phase);
     
     cv::Mat log_mag;
     cv::log (magnitude + 1, log_mag);
@@ -99,8 +98,10 @@ void task (const cv::Mat& img)
     cv::Mat magnitude_inv_phase;
     cv::magnitude (planes[0], planes[1], magnitude_inv_phase);
     
-    cv::normalize (magnitude_inv_phase, magnitude_inv_phase, 0, 1, cv::NORM_MINMAX);
-    cv::imshow ("Plot of inverse of the phase spectrum", magnitude_inv_phase);
+    cv::normalize (magnitude_inv_phase, magnitude_inv_phase,
+                   0, 1, cv::NORM_MINMAX);
+    cv::imshow ("Plot of inverse of the phase only spectrum",
+                magnitude_inv_phase);
     
     /***************** PART 1 ****************************/
     
@@ -113,7 +114,8 @@ void task (const cv::Mat& img)
     cv::Mat magnitude_inv_mag;
     cv::magnitude (planes[0], planes[1], magnitude_inv_mag);
     
-    cv::imshow ("Plot of inverse of the magnitude spectrum", magnitude_inv_mag);
+    cv::imshow ("Plot of inverse of the magnitude  only spectrum",
+                magnitude_inv_mag);
     
     /*****************************************************/
 }
